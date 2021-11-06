@@ -7,18 +7,7 @@
 
 #include "ChessBoard.h"
 
-SDL_Texture* ChessBoard::blackKingTexture;
-SDL_Texture* ChessBoard::whiteKingTexture;
-SDL_Texture* ChessBoard::blackKnightTexture;
-SDL_Texture* ChessBoard::whiteKnightTexture;
-SDL_Texture* ChessBoard::blackRookTexture;
-SDL_Texture* ChessBoard::whiteRookTexture;
-SDL_Texture* ChessBoard::blackBishopTexture;
-SDL_Texture* ChessBoard::whiteBishopTexture;
-SDL_Texture* ChessBoard::whiteQueenTexture;
-SDL_Texture* ChessBoard::blackQueenTexture;
-SDL_Texture* ChessBoard::whitePawnTexture;
-SDL_Texture* ChessBoard::blackPawnTexture;
+
 
 ChessBoard::ChessBoard(Window* game_window):game_window(game_window) {
 	for(int i=0; i<32; i++){
