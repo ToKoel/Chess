@@ -11,7 +11,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include "Window.h"
+//#include "Window.h"
 #include <typeinfo>
 
 struct position{
@@ -43,7 +43,8 @@ class Figure {
 	std::vector<position> possible_movements_southwest;
 
 public:
-	Window* game_window;
+	bool has_moved = false;
+	bool is_check = false;
 
 	virtual void move();
 	position get_position();

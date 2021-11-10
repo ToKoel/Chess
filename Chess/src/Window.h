@@ -11,22 +11,33 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
+#include <string>
+#include <map>
+
+#include "ChessBoard.h"
+
+
+
 
 class Window {
 public:
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	int screen_width;
-	int screen_height;
+	SDL_Window *window = nullptr;
+	SDL_Renderer *renderer = nullptr;
+	ChessBoard* chessboard = nullptr;
+	int screen_width = 680;
+	int screen_height = 680;
+	bool isRunning = false;
+	std::map<std::string, SDL_Texture*> textures;
+	Figure* selected_piece = nullptr;
 
+	Window(ChessBoard* board);
 	Window();
 	virtual ~Window();
-
+	void draw_board(int , int);
+	void render_piece_texture(std::string , int , int );
+	void render_pieces();
+	void load_images();
 	bool handle_events();
-
-	bool isRunning = false;
-
-	void resize_window(int height, int width);
 	void render();
 	void render_possible_moves();
 };
