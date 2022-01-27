@@ -11,7 +11,6 @@
 #include <string>
 #include <iostream>
 #include <vector>
-//#include "Window.h"
 #include <typeinfo>
 
 struct position{

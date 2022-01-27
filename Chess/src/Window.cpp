@@ -51,9 +51,9 @@ bool Window::handle_events(){
 		SDL_GetMouseState(&x,&y);
 		x /= screen_width/8;
 		y /= screen_height/8;
-		std::cout << "clicked, pos: "<< x << ", " << y << std::endl;
+
 		selected_piece = chessboard->select_piece(y,x);
-		std::cout << selected_piece << std::endl;
+		std::cout << "selected piece: " << selected_piece << std::endl;
 		break;
 
 
@@ -61,7 +61,7 @@ bool Window::handle_events(){
 		SDL_GetMouseState(&x, &y);
 		x /= screen_width/8;
 		y /= screen_height/8;
-		std::cout << "released, pos: "<< x << ", " << y << std::endl;
+
 		std::cout << selected_piece << std::endl;
 		chessboard->move_piece(selected_piece, y, x);
 		render_pieces();

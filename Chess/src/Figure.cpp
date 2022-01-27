@@ -301,18 +301,16 @@ King::King(int x, int y, std::string color){
 	set_int_type(5);
 	set_position(x,y);
 	set_color(color);
-	for(int i=1; i<1; i++){
-		add_to_possible_movements_east(position(0,i));
-		add_to_possible_movements_north(position(-i,0));
-		add_to_possible_movements_south(position(i,0));
-		add_to_possible_movements_west(position(0,-i));
 
-		add_to_possible_movements_northeast(position(-i,i));
-		add_to_possible_movements_northwest(position(-i,-i));
-		add_to_possible_movements_southeast(position(i,i));
-		add_to_possible_movements_southwest(position(i,-i));
-	}
+	add_to_possible_movements_east(position(0,1));
+	add_to_possible_movements_north(position(-1,0));
+	add_to_possible_movements_south(position(1,0));
+	add_to_possible_movements_west(position(0,-1));
 
+	add_to_possible_movements_northeast(position(-1,1));
+	add_to_possible_movements_northwest(position(-1,-1));
+	add_to_possible_movements_southeast(position(1,1));
+	add_to_possible_movements_southwest(position(1,-1));
 }
 
 void King::move(){

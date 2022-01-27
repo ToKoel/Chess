@@ -68,6 +68,7 @@ Figure* ChessBoard::select_piece(int x, int y){
 			}
 		}
 	}
+
 	if(board[x][y] && current_color == board[x][y]->get_color()){
 		generate_possible_moves(x,y);
 		board[x][y]->print_possible_moves();
@@ -81,6 +82,7 @@ Figure* ChessBoard::select_piece(int x, int y){
 void ChessBoard::move_piece(Figure* piece, int x, int y){
 	if(piece){
 		position piece_pos = piece->get_position();
+		std::cout << piece_pos.x << " " << piece_pos.y << std::endl;
 		for(auto pos: board[piece_pos.x][piece_pos.y]->get_moves()){
 			if(pos.x == x && pos.y == y){
 				piece->clear_moves();
@@ -88,10 +90,11 @@ void ChessBoard::move_piece(Figure* piece, int x, int y){
 					board[pos.x][pos.y]->set_status(false);
 				}
 				piece->set_position(pos);
+
 				board[pos.x][pos.y] = board[piece_pos.x][piece_pos.y];
 				board[piece_pos.x][piece_pos.y] = nullptr;
 
-				if(piece->get_type() == "p" || piece->get_type() == "P"){
+				if(piece->get_type() == "p" || piece->get_type() == "P" || piece->get_type() == "k" || piece->get_type() == "K"){
 					piece->has_moved = true;
 				}
 
@@ -100,10 +103,20 @@ void ChessBoard::move_piece(Figure* piece, int x, int y){
 		}
 		piece->clear_moves();
 
+		std::cout << "moves cleared" << std::endl;
+		piece_pos = piece->get_position();
+		std::cout << piece_pos.x << " " << piece_pos.y << std::endl;
+		generate_possible_moves(piece_pos.x,piece_pos.y);
+
 		for(auto new_pos: piece->get_moves()){
-			if((board[new_pos.x][new_pos.y]->get_type() == "k" ||  board[new_pos.x][new_pos.y]->get_type() == "K") &&
-					board[new_pos.x][new_pos.y]->get_color() != piece->get_color()){
-				board[new_pos.x][new_pos.y]->is_check = true;
+			std::cout << new_pos.x << " " << new_pos.y << std::endl;
+			if(board[new_pos.x][new_pos.y] != nullptr){
+				if((board[new_pos.x][new_pos.y]->get_type() == "k" ||  board[new_pos.x][new_pos.y]->get_type() == "K") &&
+						board[new_pos.x][new_pos.y]->get_color() != piece->get_color()){
+					board[new_pos.x][new_pos.y]->is_check = true;
+					std::cout << "Check!" << std::endl;
+				}
+
 			}
 		}
 		piece->clear_moves();
@@ -189,6 +202,9 @@ void ChessBoard::update_figures(){
 	for(int t=0; t<2; t++){
 		for(auto i=0; i< teams[t].alive_figures.size(); i++){
 			if(teams[t].alive_figures[i]->get_status() == false){
+				if(teams[t].alive_figures[i]->get_int_type() == 5){
+					std::cout << teams[t].color << " lost!" << std::endl;
+				}
 				teams[t].dead_figures.push_back(teams[t].alive_figures[i]);
 				auto pos = std::find(begin(teams[t].alive_figures), end(teams[t].alive_figures), teams[t].alive_figures[i]);
 				teams[t].alive_figures.erase(pos);
